@@ -10,6 +10,8 @@
     "@zeit/next-css": "^1.0.1",
     "@zeit/next-sass": "^1.0.1",
     "bootstrap": "^4.3.1",
+    "google-protobuf": "^3.11.0-rc.1",
+    "grpc-web": "^1.0.7",
     "imagemin-mozjpeg": "^8.0.0",
     "imagemin-optipng": "^7.1.0",
     "jquery": "^3.4.1",
@@ -33,6 +35,7 @@
     "dev": "next",
     "build": "next build",
     "start": "next start",
-    "export": "next export"
+    "export": "next export",
+    "proto": "protoc -I=rpc archiver.proto --js_out=import_style=commonjs:rpc --grpc-web_out=import_style=commonjs,mode=grpcwebtext:rpc"
   }
 }

@@ -1,0 +1,68 @@
+syntax = "proto3";
+
+service ArchiverFrontend {
+  rpc GetChatMessages(Context) returns (stream ChatMessage);
+  rpc GetReactions(ChatItem) returns (stream Reaction);
+ // rpc GetLastUpdate(ChatItem) returns (string);
+}
+
+service ArchiverBackend {
+ // rpc StoreChatMessage(ChatMessage) returns (bool);
+ // rpc StoreChatReaction(Reaction) returns (bool);
+}
+
+message Context {
+  // Message = $count messages after supplied (empty ts = most recent message in channel)
+  // File = message of supplied + $count comments
+  // FileID = $count comments after supplied
+  ChatItem start = 1;
+  // Maximum - if less than $count are available as many as possible
+  uint32 count = 2;
+}
+
+message ChatItem {
+  enum ChatType {
+    MESSAGE = 0;
+    FILE = 1;
+    FILE_COMMENT = 2;
+  }
+  message MessageID {
+    string ts = 1;
+    string channel = 2;
+  }
+  message FileID {
+    string file = 1;
+  }
+  message FileCommentID {
+    string file = 1;
+    string fileComment = 2;
+  }
+
+  ChatType type = 1;
+  oneof chatID {
+    MessageID messageID = 2;
+    FileID fileID = 3;
+    FileCommentID fileCommentID = 4;
+  }
+}
+
+message ChatMessage {
+  ChatItem item = 1;
+  string user = 2;
+  string text = 3;
+}
+
+message Reaction {
+  ChatItem item = 1;
+  string user = 2;
+  string reaction = 3;
+}
+
+message UserTokenScope {
+  enum ScopeType {
+    PRIVATE_CHANNELS = 0;
+    PRIVATE_MESSAGES = 1;
+  }
+  string user = 1;
+  ScopeType scope = 2;
+}

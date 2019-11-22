@@ -7,6 +7,13 @@ $gray-100: #efefef;
   -webkit-text-stroke-color: black;
 }
 
+a {
+  font-size: 0.9rem;
+}
+
+p {
+  font-size: 0.9rem;
+}
 
 @import "node_modules/bootstrap/scss/bootstrap";
 @import "themes.scss";
