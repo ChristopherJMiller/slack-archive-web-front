@@ -32,7 +32,7 @@ export default function Home() {
         },
         {
           sender: 'John Hodson',
-          message: 'Hello World!',
+          message: 'This was sent later!',
           icon: 'https://ca.slack-edge.com/T0T4D5MR7-U412Z3KUP-de7e1d0ae766-48',
           timestamp: 1574459022731
         },
