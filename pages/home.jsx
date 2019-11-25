@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from 'react-redux'
 
 import { updateChannels } from '../actions/pages'
 import { changePage } from '../actions/nav'
-import { changeTheme, THEME_COOKIE } from '../actions/theme'
+import { changeTheme, changeShade, THEME_COOKIE, SHADE_COOKIE } from '../actions/theme'
 
 import SideBar from '../components/sidebar'
 import MessageBlock from '../components/messageBlock'
@@ -22,7 +22,7 @@ export default function Home() {
   const theme = useSelector(state => state.theme)
   const pages = useSelector(state => state.pages)
   const currentPage = useSelector(state => state.nav.page)
-  const [cookies, setCookie, removeCookie] = useCookies([THEME_COOKIE]);
+  const [cookies, setCookie, removeCookie] = useCookies([THEME_COOKIE, SHADE_COOKIE]);
 
   const themeID = theme.themeID
   if (!theme.checkedCookie) {
@@ -30,6 +30,12 @@ export default function Home() {
       dispatch(changeTheme(cookies.theme, setCookie))
     } else {
       dispatch(changeTheme(0, setCookie))
+    }
+
+    if (cookies.shade) {
+      dispatch(changeShade(cookies.shade == "true", setCookie))
+    } else {
+      dispatch(changeShade(false, setCookie))
     }
   }
 
@@ -67,10 +73,10 @@ export default function Home() {
   }
   
   const selectedMessages = pages.channels[currentPage]
-  console.log(Object.keys(pages.channels))
+  console.log(theme.dark)
 
   return (
-    <Container fluid className={`vh-100 bg-${themeID}`}>
+    <Container fluid className={`vh-100 bg-${theme.dark ? 'dark' : 'light'}`}>
       <Row className="mh-100 h-100">
         <Col xs={3} className={`h-100 column-bg-${themeID} text-color-${themeID} px-0 pt-2`}>
           <SideBar 
@@ -78,14 +84,17 @@ export default function Home() {
             activePage={currentPage}
             changePage={(page) => {dispatch(changePage(page))}}
             changeTheme={(id) => {dispatch(changeTheme(id, setCookie))}}   
+            changeShade={(isDark) => {dispatch(changeShade(isDark, setCookie))}}
             theme={themeID}
             themes={theme.themes}  
+            shade={theme.dark ? 'dark' : 'light'}
           />
         </Col>
         <Col xs={9} className='h-100 px-0'>
           <MessageBlock
             messages={pages.channelsSet ? selectedMessages : []}
             theme={themeID}
+            shade={theme.dark ? 'dark' : 'light'}
           />
         </Col>
       </Row>

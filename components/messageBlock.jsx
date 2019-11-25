@@ -5,6 +5,8 @@ import {
   Container
 } from 'react-bootstrap'
 
+const moment = require('moment');
+
 function MessageBlock(props) {
   const processMessages = (messages) => {
     let result = []
@@ -45,8 +47,8 @@ function MessageBlock(props) {
             />
           </Col>
           <Col xs className='pl-0'>
-            <h5 className={`text-color-${props.theme} mb-2`}>{message.sender}</h5>
-            <p className={`text-color-${props.theme} my-1`}>
+            <h5 className={`text-color-${props.shade} mb-2`}>{message.sender}</h5>
+            <p className={`text-color-${props.shade} my-1`}>
               {message.messages[0].message}
             </p>
           </Col>
@@ -55,7 +57,7 @@ function MessageBlock(props) {
           <Col md={{ offset: 1 }} sm={{ offset: 2 }} className='pl-0'>
             {
               message.messages.slice(1, message.messages.length).map((singleMessage, index) => (
-                <p className={`text-color-${props.theme} my-1`} key={index}>
+                <p className={`text-color-${props.shade} my-1`} key={index}>
                   {singleMessage.message}
                 </p>
               ))

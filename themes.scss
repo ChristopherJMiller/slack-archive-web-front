@@ -1,4 +1,30 @@
 
+// Dark vs Light Theme Changes
+
+.bg-dark {
+  background-color: #1d1c1d !important;
+}
+
+.bg-light {
+  background-color: #ffffff !important;
+}
+
+.text-color-dark { 
+  color: #D1D2D3 !important;
+}
+
+.text-color-dark:hover { 
+  color: #D1D2D3;
+}
+
+.text-color-light { 
+  color: #111111 !important;
+}
+
+.text-color-light:hover { 
+  color: #111111;
+}
+
 // Theme 0: Protanopia & Deuteranopia
 
 .column-bg-0 {
@@ -29,16 +55,8 @@
   background-color: #27242C;
 }
 
-.text-color-0 { 
+.menu-text-0 { 
   color: #D1D2D3 !important;
-}
-
-.text-color-0:hover { 
-  color: #D1D2D3;
-}
-
-.bg-0 {
-  background-color: #1d1c1d;
 }
 
 // Theme 1: Work Hard
@@ -71,14 +89,6 @@
   background-color: #2C3136;
 }
 
-.text-color-1 { 
+.menu-text-1 { 
   color: #D1D2D3 !important;
-}
-
-.text-color-1:hover { 
-  color: #D1D2D3;
-}
-
-.bg-1 {
-  background-color: #1d1c1d;
 }
