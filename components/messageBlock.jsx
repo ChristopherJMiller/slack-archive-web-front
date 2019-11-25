@@ -33,10 +33,9 @@ function MessageBlock(props) {
     return (
       <Container fluid>
         <Row key={1} className={`hover-item-${props.theme}`}>
-          <Col xs={1}>
+          <Col md={1} sm={2} xs={0} className='d-none d-sm-block'>
             <img
-              width={48}
-              height={48}
+              className='img-fluid'
               src={message.icon}
               alt={message.sender}
             />
@@ -49,7 +48,7 @@ function MessageBlock(props) {
           </Col>
         </Row>
         <Row className={`mb-1 hover-item-${props.theme}`}>
-          <Col xs={{ offset: 1 }} className='pl-0'>
+          <Col md={{ offset: 1 }} sm={{ offset: 2 }} className='pl-0'>
             {
               message.messages.slice(1, message.messages.length).map((singleMessage, index) => (
                 <p className={`text-color-${props.theme} my-1`}>
