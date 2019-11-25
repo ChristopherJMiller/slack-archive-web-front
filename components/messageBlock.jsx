@@ -27,11 +27,15 @@ function MessageBlock(props) {
     }
     return result
   }
-  let processed = processMessages(props.messages.reverse())
+
+  // Required since reverse mutates the original array
+  const messsageClone = [...props.messages]
+
+  let processed = processMessages(messsageClone.reverse())
   console.log(processed)
   const messages = processed.map((message, index) => {
     return (
-      <Container fluid>
+      <Container fluid key={index}>
         <Row key={1} className={`hover-item-${props.theme}`}>
           <Col md={1} sm={2} xs={0} className='d-none d-sm-block'>
             <img
@@ -51,7 +55,7 @@ function MessageBlock(props) {
           <Col md={{ offset: 1 }} sm={{ offset: 2 }} className='pl-0'>
             {
               message.messages.slice(1, message.messages.length).map((singleMessage, index) => (
-                <p className={`text-color-${props.theme} my-1`}>
+                <p className={`text-color-${props.theme} my-1`} key={index}>
                   {singleMessage.message}
                 </p>
               ))

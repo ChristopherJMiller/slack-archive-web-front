@@ -5,11 +5,13 @@ import { useSelector, useDispatch } from 'react-redux'
 
 import { updateChannels } from '../actions/pages'
 import { changePage } from '../actions/nav'
+import { changeTheme, THEME_COOKIE } from '../actions/theme'
 
 import SideBar from '../components/sidebar'
 import MessageBlock from '../components/messageBlock'
 
 import { useRouter } from 'next/router';
+import { useCookies } from 'react-cookie';
 
 require('../rpc/archiver_grpc_web_pb.js')
 
@@ -17,9 +19,19 @@ export default function Home() {
   const dispatch = useDispatch()
   const router = useRouter()
 
-  const themeID = useSelector(state => state.theme.themeID)
+  const theme = useSelector(state => state.theme)
   const pages = useSelector(state => state.pages)
   const currentPage = useSelector(state => state.nav.page)
+  const [cookies, setCookie, removeCookie] = useCookies([THEME_COOKIE]);
+
+  const themeID = theme.themeID
+  if (!theme.checkedCookie) {
+    if (cookies.theme) {
+      dispatch(changeTheme(cookies.theme, setCookie))
+    } else {
+      dispatch(changeTheme(0, setCookie))
+    }
+  }
 
   if (!pages.channelsSet) {
     dispatch(updateChannels({
@@ -60,12 +72,14 @@ export default function Home() {
   return (
     <Container fluid className={`vh-100 bg-${themeID}`}>
       <Row className="mh-100 h-100">
-        <Col xs={3} className={`h-100 column-bg-${themeID} text-color-${themeID} px-0`}>
+        <Col xs={3} className={`h-100 column-bg-${themeID} text-color-${themeID} px-0 pt-2`}>
           <SideBar 
             channels={Object.keys(pages.channels)}
             activePage={currentPage}
-            changePage={(page) => {dispatch(changePage(page))}}   
-            theme={themeID}         
+            changePage={(page) => {dispatch(changePage(page))}}
+            changeTheme={(id) => {dispatch(changeTheme(id, setCookie))}}   
+            theme={themeID}
+            themes={theme.themes}  
           />
         </Col>
         <Col xs={9} className='h-100 px-0'>

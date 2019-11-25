@@ -1,4 +1,6 @@
 
+// Theme 0: Protanopia & Deuteranopia
+
 .column-bg-0 {
   background-color: #19171D;
 }
@@ -36,5 +38,47 @@
 }
 
 .bg-0 {
+  background-color: #1d1c1d;
+}
+
+// Theme 1: Work Hard
+
+.column-bg-1 {
+  background-color: #222629;
+}
+
+.menu-bg-hover-1 {
+  background-color: #121518;
+}
+
+.active-item-1 {
+  background-color: #D39B46;
+}
+
+.active-item-1:hover {
+  background-color: #D39B46;
+}
+
+.active-item-text-1 {
+  color: #FFFFFF;
+}
+
+.active-item-text-1:hover {
+  color: #FFFFFF;
+}
+
+.hover-item-1:hover {
+  background-color: #2C3136;
+}
+
+.text-color-1 { 
+  color: #D1D2D3 !important;
+}
+
+.text-color-1:hover { 
+  color: #D1D2D3;
+}
+
+.bg-1 {
   background-color: #1d1c1d;
 }

@@ -2,6 +2,7 @@ import { combineReducers } from 'redux'
 
 import { UPDATE_CHANNELS } from '../actions/pages'
 import { CHANGE_PAGE } from '../actions/nav'
+import { CHANGE_THEME } from '../actions/theme'
 
 function nav(
   state = {
@@ -40,11 +41,22 @@ function pages(
 
 function theme(
   state = {
-    themeID: 0
+    themeID: 0,
+    dark: true,
+    checkedCookie: false,
+    themes: {
+      'Protanopia & Deuteranopia': 0,
+      'Work Hard': 1
+    }
   },
   action
 ) {
   switch(action.type) {
+    case CHANGE_THEME:
+      return Object.assign({}, state, {
+        themeID: action.id,
+        checkedCookie: true
+      })
     default:
       return state
   }
