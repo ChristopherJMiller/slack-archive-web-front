@@ -1,7 +1,8 @@
 import '../styles.scss'
 
-import { Container, Row, Col } from 'react-bootstrap'
+import { Container, Row, Col, Modal } from 'react-bootstrap'
 import { useSelector, useDispatch } from 'react-redux'
+import { useState } from 'react';
 
 import { updateChannels } from '../actions/pages'
 import { changePage } from '../actions/nav'
@@ -71,34 +72,51 @@ export default function Home() {
       'random-chat': []
     }))
   }
+
+  const ready = pages.channelsSet && theme.checkedCookie
+  const [modalShow, setModalShow] = useState(true)
+  if (ready) {
+    // Simulate Network Request
+    setTimeout(() => { setModalShow(false) }, 1000)
+  }
   
   const selectedMessages = pages.channels[currentPage]
   console.log(theme.dark)
 
   return (
-    <Container fluid className={`vh-100 bg-${theme.dark ? 'dark' : 'light'}`}>
-      <Row className="mh-100 h-100">
-        <Col xs={3} className={`h-100 column-bg-${themeID} text-color-${themeID} px-0 pt-2`}>
-          <SideBar 
-            channels={Object.keys(pages.channels)}
-            activePage={currentPage}
-            changePage={(page) => {dispatch(changePage(page))}}
-            changeTheme={(id) => {dispatch(changeTheme(id, setCookie))}}   
-            changeShade={(isDark) => {dispatch(changeShade(isDark, setCookie))}}
-            theme={themeID}
-            themes={theme.themes}  
-            shade={theme.dark ? 'dark' : 'light'}
-          />
-        </Col>
-        <Col xs={9} className='h-100 px-0'>
-          <MessageBlock
-            messages={pages.channelsSet ? selectedMessages : []}
-            theme={themeID}
-            shade={theme.dark ? 'dark' : 'light'}
-          />
-        </Col>
-      </Row>
-    </Container>
+    <>
+      <Container fluid className={`vh-100 bg-${theme.dark ? 'dark' : 'light'}`}>
+        <Row className="mh-100 h-100">
+          <Col xs={3} className={`h-100 column-bg-${themeID} text-color-${themeID} px-0 pt-2`}>
+            { ready ? <SideBar 
+              channels={Object.keys(pages.channels)}
+              activePage={currentPage}
+              changePage={(page) => {dispatch(changePage(page))}}
+              changeTheme={(id) => {dispatch(changeTheme(id, setCookie))}}   
+              changeShade={(isDark) => {dispatch(changeShade(isDark, setCookie))}}
+              theme={themeID}
+              themes={theme.themes}  
+              shade={theme.dark ? 'dark' : 'light'}
+            /> : null }
+          </Col>
+          <Col xs={9} className='h-100 px-0'>
+            { ready ? <MessageBlock
+              messages={pages.channelsSet ? selectedMessages : []}
+              theme={themeID}
+              shade={theme.dark ? 'dark' : 'light'}
+            /> : null }
+          </Col>
+        </Row>
+      </Container>
+
+      <Modal show={modalShow} animation={true} centered size="lg">
+        <img
+          className='loading-icon'
+          src={require('../static/glen.gif')}
+          alt={'Loading'}
+        />
+      </Modal>
+    </>
   )
 }
 

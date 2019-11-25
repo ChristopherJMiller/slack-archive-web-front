@@ -8,7 +8,7 @@ module.exports = withPlugins(
     [sass, {}],
     [css, {}],
     [optimizedImages, {
-      handleImages: ['jpeg', 'png'],
+      handleImages: ['jpeg', 'png', 'gif'],
       optimizeImages: true
     }],
   ],

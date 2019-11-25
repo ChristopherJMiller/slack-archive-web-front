@@ -12,6 +12,7 @@
     "bootstrap": "^4.3.1",
     "google-protobuf": "^3.11.0-rc.1",
     "grpc-web": "^1.0.7",
+    "imagemin-gifsicle": "^6.0.1",
     "imagemin-mozjpeg": "^8.0.0",
     "imagemin-optipng": "^7.1.0",
     "jquery": "^3.4.1",
